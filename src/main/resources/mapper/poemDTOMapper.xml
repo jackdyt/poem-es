@@ -10,7 +10,7 @@
         <result column="href" property="href"/>
         <result column="authordes" property="authordes"/>
         <result column="origin" property="origin"/>
-        <association property="categoryId" javaType="com.jackdyt.poem.dto.categoryDTO">
+        <association property="category" javaType="com.jackdyt.poem.dto.categoryDTO">
             <id column="cid" property="id"/>
             <result column="cname" property="name"/>
         </association>

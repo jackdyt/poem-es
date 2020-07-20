@@ -16,5 +16,5 @@ public class poemDTO {
     private String href;
     private String authordes;
     private String origin;
-    private String categoryId;
+    private categoryDTO category = new categoryDTO();
 }

@@ -3,10 +3,11 @@ package com.jackdyt.poem.service;
 import com.jackdyt.poem.dto.poemDTO;
 import com.jackdyt.poem.mapper.poemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class poemServiceImpl implements poemService {
     @Autowired
     private poemMapper poemMapper;

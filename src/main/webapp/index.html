@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>all poems</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="./js/axios.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <script src="./js/vue.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- title -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://localhost:8083">All Poem</a>
+            </div>
+
+            <!-- buttons for es add and delete -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <button type="button" class="btn btn-success"> Add all data to ES</button>
+                <button type="button" class="btn btn-danger">Delete all data from ES</button>
+            </div>
+        </div>
+    </nav>
+
+<div class="row" style="margin-top: 20px;"  id="poemtable">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>name</th>
+                    <th>author</th>
+                    <th>content</th>
+                    <th>type</th>
+                </tr>
+                <tbody>
+                <tr v-for="poem,index in poems" :key="poem.id">
+                    <td>{{ poem.id }}</td>
+                    <td>{{ poem.name }}</td>
+                    <td>{{ poem.author }}</td>
+                    <td>{{ poem.content }}</td>
+                    <td>{{ poem.type }}</td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="jump">
+            <span class="jump_text">Total {{ index.totalPage }}pages,{{ index.totalPoems }} poems, jump to
+                <input type="text" name="jumpPage" v-model="page">page
+                <button type="button" class="btn btn-primary btn-xs" @click="findByPage">GO</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const poemTable = new Vue({
+        el: "#poemtable",
+        data: {
+            poems: [],
+            index :{},
+            page: 1,
+            size: 10
+        },
+        methods: {
+            findByPage() {
+                let _this = this;
+                axios.get("http://localhost:8083/poem/findByPage/"+ _this.page+"/"+ _this.size).then(function (response) {
+                    _this.poems = response.data.poems;
+                    _this.index = response.data;
+                    console.log(_this.poems)
+                }).catch(function (err) {
+                    console.log(err);
+                })
+            },
+
+
+        },
+        created() {
+            this.findByPage();
+        }
+    })
+</script>
+</body>
+</html>

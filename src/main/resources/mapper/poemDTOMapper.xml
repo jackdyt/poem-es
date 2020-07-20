@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jackdyt.poem.mapper.poemMapper">
+    <resultMap id="PoemMap" type="com.jackdyt.poem.dto.poemDTO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="author" property="author"/>
+        <result column="type" property="type"/>
+        <result column="content" property="content"/>
+        <result column="href" property="href"/>
+        <result column="authordes" property="authordes"/>
+        <result column="origin" property="origin"/>
+        <association property="categoryId" javaType="com.jackdyt.poem.dto.categoryDTO">
+            <id column="cid" property="id"/>
+            <result column="cname" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="PoemMap">
+        select p.id, p.name, p.author, p.type, p.content, p.href, p.authordes, p.origin, c.id cid, c.name catalog_name
+        from t_poem p
+        left join t_category c
+        on p.categoryId = c.id
+    </select>
+
+    <select id="findByPage" resultMap="PoemMap">
+        select p.id, p.name, p.author, p.type, p.content, p.href, p.authordes, p.origin, c.id cid, c.name catalog_name
+        from t_poem p
+        left join t_category c
+        on p.categoryId = c.id
+        limit #{start},#{size}
+    </select>
+
+    <select id="findTotal" resultType="Long">
+        select count(p.id)
+        from t_poem p
+        left join t_category c
+        on p.categoryid = c.id
+    </select>
+
+
+</mapper>

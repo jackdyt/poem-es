@@ -19,6 +19,10 @@ mybatis:
   type-aliases-package: com.jackdyt.poem.mapper
   mapper-locations: classpath:mapper/*.xml
 
+elasticsearch:
+  rest:
+    url: 127.0.0.1:9200
+
 
 
 logging:

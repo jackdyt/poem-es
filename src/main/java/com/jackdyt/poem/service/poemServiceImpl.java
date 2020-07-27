@@ -15,6 +15,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,8 +28,10 @@ public class poemServiceImpl implements poemService {
     @Autowired
     private poemMapper poemMapper;
 
+    @Qualifier("elasticsearchClient")
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+
     @Autowired
     private PoemRepository poemRepository;
 
